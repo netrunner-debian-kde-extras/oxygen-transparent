@@ -1,0 +1,73 @@
+Source: oxygen-transparent
+Section: kde
+Priority: optional
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Daniele E. Domenichelli <daniele.domenichelli@gmail.com>
+Build-Depends: kde-sc-dev-latest (>= 4:4.10),
+ debhelper (>= 9),
+ cmake (>= 2.6.4),
+ pkg-kde-tools (>= 0.14),
+ kdelibs5-dev (>= 4:4.10),
+ kde-workspace-dev (>= 4:4.10),
+ libx11-dev,
+ libxrender-dev
+Standards-Version: 3.9.3
+Homepage: http://www.kde.org/
+Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-sc/oxygen-transparent.git
+Vcs-Git: git://git.debian.org/pkg-kde/kde-sc/oxtgen-transparent.git
+
+Package: kde-style-oxygen-transparent
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Oxygen-transparent widget style for KDE 4
+ This package contains the Oxygen-transparent widget style for KDE 4.
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.
+
+Package: kwin-style-oxygen-transparent
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Oxygen-transparent window decoration for KWin
+ This package contains the Oxygen-transparent window decoration for
+ KWin.
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.
+
+Package: oxygen-transparent
+Section: metapackages
+Architecture: any
+Depends: ${misc:Depends},
+ kde-style-oxygen-transparent, kwin-style-oxygen-transparent
+Description: Transparent decoration theme for KDE (meta-package)
+ This package installs all packages related with Oxygen-transparent:
+  * kde-style-oxygen-transparent
+  * kwin-style-oxygen-transparent
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.
+
+Package: oxygen-transparent-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: ${misc:Depends}, oxygen-transparent
+Description: debugging symbols for Oxygen-transparent style for KDE
+ This package contains debugging files used to investigate problems with the
+ Oxygen-transparent.
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.

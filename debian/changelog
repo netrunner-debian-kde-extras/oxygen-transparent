@@ -1,0 +1,6 @@
+oxygen-transparent (0~git34095bee-0r2) UNRELEASED; urgency=low
+
+  [ Daniele E. Domenichelli ]
+  * Initial release (Closes: #654787).
+
+ -- Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>  Thu, 28 Mar 2013 23:19:17 +0100
