@@ -63,6 +63,7 @@ Architecture: any
 Depends: ${misc:Depends},
  kde-style-oxygen-transparent (= ${binary:Version}) |
  kwin-style-oxygen-transparent (= ${binary:Version})
+Recommends: kdelibs5-dbg
 Description: debugging symbols for Oxygen-transparent style for KDE
  This package contains debugging files used to investigate problems with the
  Oxygen-transparent.
