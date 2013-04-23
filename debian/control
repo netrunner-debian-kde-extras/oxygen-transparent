@@ -42,7 +42,7 @@ Description: Oxygen-transparent window decoration for KWin
 
 Package: oxygen-transparent
 Section: metapackages
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends},
  kde-style-oxygen-transparent, kwin-style-oxygen-transparent
 Description: Transparent decoration theme for KDE (meta-package)
