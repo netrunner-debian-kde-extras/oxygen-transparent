@@ -60,7 +60,9 @@ Package: oxygen-transparent-dbg
 Section: debug
 Priority: extra
 Architecture: any
-Depends: ${misc:Depends}, oxygen-transparent
+Depends: ${misc:Depends},
+ kde-style-oxygen-transparent (= ${binary:Version}) |
+ kwin-style-oxygen-transparent (= ${binary:Version})
 Description: debugging symbols for Oxygen-transparent style for KDE
  This package contains debugging files used to investigate problems with the
  Oxygen-transparent.
