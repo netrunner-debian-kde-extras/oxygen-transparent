@@ -15,6 +15,30 @@ Homepage: http://www.kde.org/
 #Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-sc/oxygen-transparent.git
 #Vcs-Git: git://git.debian.org/pkg-kde/kde-sc/oxtgen-transparent.git
 
+Package: liboxygentransparentstyleconfig4
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Oxygen-transparent - oxygentransparentstyleconfig library
+ This package contains the oxygentransparentstyleconfig library.
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.
+
+Package: liboxygentransparentstyle4
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Oxygen-transparent - oxygentransparentstyle library
+ This package contains the oxygentransparentstyleconfigstyle library.
+ .
+ Oxygen-transparent is a fork of the default KDE widget and window
+ decoration theme (Oxygen) that supports transparency for application
+ windows. It requires that compositing is supported on your system and
+ that desktop effects are enabled. It is best used with kwin's blur
+ effect.
+
 Package: kde-style-oxygen-transparent
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
@@ -61,6 +85,8 @@ Section: debug
 Priority: extra
 Architecture: any
 Depends: ${misc:Depends},
+ liboxygentransparentstyleconfig4 (= ${binary:Version}) |
+ liboxygentransparentstyle4 (= ${binary:Version}) |
  kde-style-oxygen-transparent (= ${binary:Version}) |
  kwin-style-oxygen-transparent (= ${binary:Version})
 Recommends: kdelibs5-dbg
