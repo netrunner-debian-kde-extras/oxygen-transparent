@@ -1,0 +1,3 @@
+kde-style-oxygen-transparent: package-name-doesnt-match-sonames liboxygentransparentstyle4 liboxygentransparentstyleconfig4
+kde-style-oxygen-transparent: no-symbols-control-file usr/lib/liboxygentransparentstyleconfig.so.4.10.2
+kde-style-oxygen-transparent: no-symbols-control-file usr/lib/liboxygentransparentstyle.so.4.10.2
