@@ -12,8 +12,8 @@ Build-Depends: pkg-kde-tools (>= 0.14),
  libxrender-dev
 Standards-Version: 3.9.3
 Homepage: http://www.kde.org/
-#Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-sc/oxygen-transparent.git
-#Vcs-Git: git://git.debian.org/pkg-kde/kde-sc/oxtgen-transparent.git
+Vcs-Browser: http://git.debian.org/?p=pkg-kde/kde-extras/oxygen-transparent.git
+Vcs-Git: git://git.debian.org/pkg-kde/kde-extras/oxygen-transparent.git
 
 Package: kde-style-oxygen-transparent
 Architecture: any
