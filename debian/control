@@ -29,7 +29,8 @@ Description: Oxygen-transparent widget style for KDE 4
 
 Package: kwin-style-oxygen-transparent
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ kde-style-oxygen-transparent (= ${binary:Version})
 Description: Oxygen-transparent window decoration for KWin
  This package contains the Oxygen-transparent window decoration for
  KWin.
