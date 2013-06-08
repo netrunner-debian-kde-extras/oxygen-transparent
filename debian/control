@@ -1,8 +1,7 @@
 Source: oxygen-transparent
 Section: kde
 Priority: optional
-Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Daniele E. Domenichelli <daniele.domenichelli@gmail.com>
+Maintainer: Daniele E. Domenichelli <daniele.domenichelli@gmail.com>
 Build-Depends: pkg-kde-tools (>= 0.14),
  debhelper (>= 9),
  cmake (>= 2.6.4),
