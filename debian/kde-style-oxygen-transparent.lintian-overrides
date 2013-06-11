@@ -1,3 +1,5 @@
+# These libraries are supposed to be used only by this package, therefore a lib package for each library is not needed
 kde-style-oxygen-transparent: package-name-doesnt-match-sonames liboxygentransparentstyle4 liboxygentransparentstyleconfig4
+# Also symbols files are not needed
 kde-style-oxygen-transparent: no-symbols-control-file usr/lib/liboxygentransparentstyleconfig.so.4.*
 kde-style-oxygen-transparent: no-symbols-control-file usr/lib/liboxygentransparentstyle.so.4.*
