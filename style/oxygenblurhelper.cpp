@@ -3,7 +3,7 @@
 // handle regions passed to kwin for blurring
 // -------------------
 //
-// Copyright (c) 2010 Hugo Pereira Da Costa <hugo@oxygen-icons.org>
+// Copyright (c) 2010 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 //
 // Loosely inspired (and largely rewritten) from BeSpin style
 // Copyright (C) 2007 Thomas Luebking <thomas.luebking@web.de>
@@ -30,6 +30,7 @@
 #include "oxygenblurhelper.h"
 #include "oxygenblurhelper.moc"
 
+#include "oxygenpropertynames.h"
 #include "oxygenstyleconfigdata.h"
 
 #include <QtCore/QEvent>
@@ -77,13 +78,13 @@ namespace Oxygen
         _widgets.insert( widget );
 
         // cleanup on destruction
-        connect( widget, SIGNAL( destroyed( QObject* ) ), SLOT( widgetDestroyed( QObject* ) ) );
+        connect( widget, SIGNAL(destroyed(QObject*)), SLOT(widgetDestroyed(QObject*)) );
 
         if( enabled() )
         {
             // schedule shadow area repaint
             _pendingWidgets.insert( widget, widget );
-            delayedUpdate();
+            update();
         }
 
     }
@@ -117,7 +118,7 @@ namespace Oxygen
                 {
                     QWidget* window( widget->window() );
                     _pendingWidgets.insert( window, window );
-                    delayedUpdate();
+                    update();
                 }
                 break;
 
@@ -134,7 +135,7 @@ namespace Oxygen
                 {
 
                     _pendingWidgets.insert( widget, widget );
-                    delayedUpdate();
+                    update();
 
                 } else if( isOpaque( widget ) ) {
 
@@ -142,7 +143,7 @@ namespace Oxygen
                     if( isTransparent( window ) )
                     {
                         _pendingWidgets.insert( window, window );
-                        delayedUpdate();
+                        update();
                     }
 
                 }
@@ -200,12 +201,8 @@ namespace Oxygen
             {
 
                 const QPoint offset( child->mapTo( parent, QPoint( 0, 0 ) ) );
-                if( child->mask().isEmpty() )
-                {
-                    const QRect rect( child->rect().translated( offset ).adjusted( 1, 1, -1, -1 ) );
-                    region -= rect;
-
-                }  else region -= child->mask().translated( offset );
+                if( child->mask().isEmpty() ) region -= child->rect().translated( offset );
+                else region -= child->mask().translated( offset );
 
             } else { trimBlurRegion( parent, child, region ); }
 
@@ -290,6 +287,9 @@ namespace Oxygen
     bool BlurHelper::isTransparent( const QWidget* widget ) const
     {
 
+        QVariant propertyValue( widget->property( PropertyNames::noBlurBehind ) );
+        if( propertyValue.isValid() && propertyValue.toBool() ) return false;
+
         return
             widget->isWindow() &&
             widget->testAttribute( Qt::WA_TranslucentBackground ) &&
@@ -302,7 +302,8 @@ namespace Oxygen
             ( widget->testAttribute( Qt::WA_StyledBackground ) ||
             qobject_cast<const QMenu*>( widget ) ||
             qobject_cast<const QDockWidget*>( widget ) ||
-            qobject_cast<const QToolBar*>( widget ) ) &&
+            qobject_cast<const QToolBar*>( widget ) ||
+            widget->windowType() == Qt::ToolTip ) &&
             _helper.hasAlphaChannel( widget );
     }
 

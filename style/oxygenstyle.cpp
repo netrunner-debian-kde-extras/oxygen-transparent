@@ -5,7 +5,7 @@
 // Oxygen widget style for KDE 4
 // -------------------
 //
-// Copyright ( C ) 2009-2010 Hugo Pereira Da Costa <hugo@oxygen-icons.org>
+// Copyright ( C ) 2009-2010 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 // Copyright ( C ) 2008 Long Huynh Huu <long.upcase@googlemail.com>
 // Copyright ( C ) 2007-2008 Casper Boemann <cbr@boemann.dk>
 // Copyright ( C ) 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
@@ -268,6 +268,7 @@ namespace Oxygen
 
             case Qt::Window:
             case Qt::Dialog:
+            case Qt::Sheet:
 
             // set background as styled
             widget->setAttribute( Qt::WA_StyledBackground );
@@ -401,6 +402,10 @@ namespace Oxygen
             widget->setAttribute( Qt::WA_TranslucentBackground );
             addEventFilter( widget );
 
+        } else if( widget->inherits( "QGLWidget" ) ) {
+
+            widget->setAttribute( Qt::WA_TranslucentBackground );
+
         } else if( qobject_cast<QTabBar*>( widget ) ) {
 
             addEventFilter( widget );
@@ -509,6 +514,7 @@ namespace Oxygen
 
             case Qt::Window:
             case Qt::Dialog:
+            case Qt::Sheet:
             widget->removeEventFilter( this );
             widget->setAttribute( Qt::WA_StyledBackground, false );
             break;
@@ -1358,7 +1364,7 @@ namespace Oxygen
     {
 
         if( ev->type() != QEvent::Paint ) return false;
-        if( !( (widget->windowFlags() & Qt::WindowType_Mask) & (Qt::Window|Qt::Dialog) ) ) return false;
+        if( !( (widget->windowFlags() & Qt::WindowType_Mask) & (Qt::Window|Qt::Dialog|Qt::Sheet) ) ) return false;
         if( !(
             widget->isWindow() &&
             widget->testAttribute( Qt::WA_TranslucentBackground ) &&
@@ -1855,8 +1861,12 @@ namespace Oxygen
                 if( !gbOpt ) break;
 
                 const bool isFlat( gbOpt->features & QStyleOptionFrameV2::Flat );
-                QFont font = widget->font();
-
+                QFont font;
+                if (widget) {
+                    font = widget->font();
+                } else {
+                    font = QApplication::font();
+                }
                 // calculate text width assuming bold text in flat group boxes
                 if( isFlat ) font.setBold( true );
 
@@ -3089,7 +3099,14 @@ namespace Oxygen
             const QRect slabRect( r.adjusted( -1, 0, 1, 0 ) );
 
             // match color to the window background
-            const QColor buttonColor( helper().backgroundColor( palette.color( QPalette::Button ), widget, r.center() ) );
+            QColor buttonColor( helper().backgroundColor( palette.color( QPalette::Button ), widget, r.center() ) );
+
+            // merge button color with highlight in case of default button
+            if( enabled && bOpt && (bOpt->features&QStyleOptionButton::DefaultButton) )
+            {
+                const QColor tintColor( helper().calcLightColor( buttonColor ) );
+                buttonColor = KColorUtils::mix( buttonColor, tintColor, 0.5 );
+            }
 
             if( enabled && hoverAnimated && !( opts & Sunken ) )
             {
@@ -3554,8 +3571,8 @@ namespace Oxygen
         const bool hasAlpha( helper().hasAlphaChannel( widget ) );
         if(  hasAlpha && StyleConfigData::toolTipTransparent() )
         {
-
-            blurHelper().registerWidget( widget->window() );
+            if( widget && widget->window() )
+            { blurHelper().registerWidget( widget->window() ); }
             topColor.setAlpha( 220 );
             bottomColor.setAlpha( 220 );
         }
@@ -4182,7 +4199,7 @@ namespace Oxygen
 
         // check widget and attributes
         if( !widget || !widget->testAttribute( Qt::WA_StyledBackground ) || widget->testAttribute( Qt::WA_NoSystemBackground ) ) return false;
-        if( !( ( widget->windowFlags() & Qt::WindowType_Mask ) & ( Qt::Window|Qt::Dialog ) ) ) return false;
+        if( !( ( widget->windowFlags() & Qt::WindowType_Mask ) & ( Qt::Window|Qt::Dialog|Qt::Sheet ) ) ) return false;
         if( !widget->isWindow() ) return false;
 
         // normal "window" background
@@ -8026,6 +8043,9 @@ namespace Oxygen
         // reset helper configuration
         helper().reloadConfig();
 
+        // background gradient
+        helper().setUseBackgroundGradient( StyleConfigData::useBackgroundGradient() );
+
         // background pixmap
         helper().setBackgroundPixmap( StyleConfigData::backgroundPixmap() );
 
@@ -8373,7 +8393,7 @@ namespace Oxygen
         if( qApp && !qApp->inherits( "KApplication" ) )
         {
             /*
-            for Qt, non-KDE applications, needs to explicitely activate KGlobalSettings.
+            for Qt, non-KDE applications, needs to explicitly activate KGlobalSettings.
             On the other hand, it is done internally in kApplication constructor,
             so no need to duplicate here.
             */

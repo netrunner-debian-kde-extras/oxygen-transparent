@@ -6,7 +6,7 @@
 // handle regions passed to kwin for blurring
 // -------------------
 //
-// Copyright (c) 2010 Hugo Pereira Da Costa <hugo@oxygen-icons.org>
+// Copyright (c) 2010 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 //
 // Loosely inspired (and largely rewritten) from BeSpin style
 // Copyright (C) 2007 Thomas Luebking <thomas.luebking@web.de>
@@ -108,14 +108,6 @@ namespace Oxygen
 
         //! trim blur region to remove unnecessary areas (recursive)
         void trimBlurRegion( QWidget*, QWidget*, QRegion& ) const;
-
-        //! update blur region for all pending widgets
-        /*! a timer is used to allow some buffering of the update requests */
-        void delayedUpdate( void )
-        {
-            if( !_timer.isActive() )
-            { _timer.start( 10, this ); }
-        }
 
         //! update blur region for all pending widgets
         void update( void )

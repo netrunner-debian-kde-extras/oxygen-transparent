@@ -33,6 +33,12 @@
 #include <QtGui/QDialog>
 #include <QtGui/QIcon>
 
+#ifdef Q_WS_X11
+#include <QtGui/QX11Info>
+#include <X11/Xlib.h>
+#include <X11/Xatom.h>
+#endif
+
 namespace Oxygen
 {
 
@@ -43,7 +49,16 @@ namespace Oxygen
         _applicationType( AppUnknown ),
         _enabled( false ),
         _opacity( 0xff )
-    {}
+    {
+
+        #ifdef Q_WS_X11
+
+        // create atom
+        _xEmbedAtom = XInternAtom( QX11Info::display(), "_XEMBED_INFO", False);
+
+        #endif
+
+    }
 
     //______________________________________________________________
     void ArgbHelper::registerApplication( QApplication* app )
@@ -89,6 +104,7 @@ namespace Oxygen
 
             case Qt::Window:
             case Qt::Dialog:
+            case Qt::Sheet:
             {
 
                 // do not handle all kind of 'special background' widgets
@@ -124,6 +140,7 @@ namespace Oxygen
                     widget->inherits( "QSplashScreen") ) break;
 
                 if( widget->windowFlags().testFlag( Qt::FramelessWindowHint ) ) break;
+                if( isXEmbed( widget ) ) break;
 
                 // setup transparency and return
                 setupTransparency( widget );
@@ -205,23 +222,26 @@ namespace Oxygen
         // store icon
         QIcon icon(widget->windowIcon());
 
+        const bool wasVisible( widget->isVisible() );
+        const bool moved( widget->testAttribute( Qt::WA_Moved ) );
+
+        // hide widget
+        if( wasVisible ) widget->hide();
+
         // set translucent flag
         widget->setAttribute( Qt::WA_TranslucentBackground );
 
+        /*
+        reset WA_Moved flag, which is incorrectly set to true when
+        window is replaced by its transparent counterpart
+        */
+        if( !moved ) widget->setAttribute(Qt::WA_Moved, false);
+
+        // show widget if was originally visible
+        if( wasVisible ) widget->show();
+
         // re-install icon
         widget->setWindowIcon(icon);
-        if( !widget->isVisible() )
-        {
-
-            /*
-            WORKAROUND (imported from bespin, thanks Thomas!):
-            somehow the window gets repositioned to <1,<1 and thus always appears in the upper left corner
-            we just move it faaaaar away so kwin will take back control and apply smart placement or whatever
-            */
-            QPoint position( -10000, 10000 );
-            widget->move( position );
-
-        }
 
         // add to set of transparent widgets and connect destruction signal
         _transparentWidgets.insert( widget );
@@ -241,6 +261,32 @@ namespace Oxygen
         }
 
         return;
+    }
+
+    //______________________________________________________________
+    bool ArgbHelper::isXEmbed( QWidget* widget ) const
+    {
+
+        #ifdef Q_WS_X11
+
+        // QTextStream( stdout ) << "ArgbHelper::isXEmbed" << endl;
+
+        Atom type = None;
+        int format = 0;
+        unsigned char *data = 0x0;
+        unsigned long count = 0;
+        unsigned long after = 0;
+        const int length = 32768;
+
+        // get window property
+        return XGetWindowProperty(
+            QX11Info::display(), widget->winId(), _xEmbedAtom,
+            0L, length, false, XA_ATOM, &type, &format, &count, &after, &data) == Success && data;
+
+        #else
+        return false;
+        #endif
+
     }
 
 }

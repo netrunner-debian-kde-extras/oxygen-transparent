@@ -3,7 +3,7 @@
 * hard-coded property names to disable some of oxygen features
 * -------------------
 *
-* Copyright (c) 2012 Hugo Pereira Da Costa <hugo@oxygen-icons.org>
+* Copyright (c) 2012 Hugo Pereira Da Costa <hugo.pereira@free.fr>
 *
 * Largely inspired from Qtcurve style
 * Copyright (C) Craig Drummond, 2003 - 2010 craig.p.drummond@gmail.com
@@ -31,5 +31,6 @@ namespace Oxygen
 
     const char* const PropertyNames::noAnimations = "_kde_no_animations";
     const char* const PropertyNames::noWindowGrab = "_kde_no_window_grab";
+    const char* const PropertyNames::noBlurBehind = "_kde_no_blur_behind";
 
 }

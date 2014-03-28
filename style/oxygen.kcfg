@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE kcfg SYSTEM "http://www.kde.org/standards/kcfg/1.0/kcfg.dtd">
-<kcfg>
-  <kcfgfile name="oxygenrc"/>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
 
+  <kcfgfile name="oxygenrc"/>
   <group name="Common">
 
     <!-- background opacity -->
@@ -17,7 +18,7 @@
       grey list
     -->
     <entry name="OpacityInternalBlackList" type = "StringList"> 
-        <default>krunner,amarok,vlc,vlc-wrapper,kscreenlocker,kscreenlocker_greet,kdenlive,nspluginviewer,smplayer,dragon,kaffeine,loopy,kwin,bangarang,kpartsplugin,djview</default>
+        <default>krunner,amarok,vlc,vlc-wrapper,kscreenlocker,kscreenlocker_greet,kdenlive,nspluginviewer,smplayer,dragon,kaffeine,loopy,kwin,bangarang,djview</default>
     </entry>
 
     <!-- 
@@ -25,7 +26,7 @@
       however they are unchecked, unless they also appear in the blacklist
     -->
     <entry name="OpacityGreyList" type = "StringList"> 
-        <default>krunner,amarok,vlc,vlc-wrapper,kscreenlocker</default>
+        <default>krunner,amarok,vlc,vlc-wrapper,kscreenlocker,kpartsplugin</default>
     </entry>
 
     <!-- opacity black list -->
@@ -38,7 +39,12 @@
 
   <group name="Common"> 
 
-    <!-- background opacity -->
+    <!-- background gradient -->
+    <entry name="UseBackgroundGradient" type = "Bool" >
+       <default>true</default>
+    </entry>
+
+    <!-- background pixmap -->
     <entry name="BackgroundPixmap" type = "String" >
        <default></default>
     </entry>

@@ -2,7 +2,7 @@
 #define oxygentileset_h
 
 /*
- * Copyright 2009-2010 Hugo Pereira Da Costa <hugo@oxygen-icons.org>
+ * Copyright 2009-2010 Hugo Pereira Da Costa <hugo.pereira@free.fr>
  * Copyright 2008 Long Huynh Huu <long.upcase@googlemail.com>
  * Copyright 2007 Matthew Woehlke <mw_triad@users.sourceforge.net>
  *
@@ -26,8 +26,6 @@
 #include <QtGui/QPixmap>
 #include <QtCore/QRect>
 #include <QtCore/QVector>
-
-#include <cassert>
 
 //! handles proper scaling of pixmap to match widget rect.
 /*!
@@ -113,7 +111,7 @@ namespace Oxygen
 
         //! is valid
         bool isValid( void ) const
-        { return size().isValid() && _pixmaps.size() == 9; }
+        { return _pixmaps.size() == 9; }
 
         //! save all pixmaps
         /*! pixmap names will be \p basename-position.suffix. Other arguments are the same as for QPixmap::save */
@@ -129,10 +127,7 @@ namespace Oxygen
 
         //! returns pixmap for given index
         QPixmap pixmap( int index ) const
-        {
-            assert( index >= 0 && index < _pixmaps.size() );
-            return _pixmaps[index];
-        }
+        { return _pixmaps[index]; }
 
         protected:
 
