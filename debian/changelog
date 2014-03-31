@@ -1,11 +1,11 @@
-oxygen-transparent (0~20131218-0r1) UNRELEASED; urgency=medium
+oxygen-transparent (0~20131218-1) unstable; urgency=medium
 
   * Import KDE/4.11 branch.
   * Update kdelibs5-dev and kde-workspace-dev to (>= 4:4.10).
   * Bump standards version to 3.9.5 (no changes needed).
   * Override debian-watch-file-is-missing lintian info.
 
- -- Daniele E. Domenichelli <daniele.domenichelli@gmail.com>  Mon, 31 Mar 2014 09:33:53 +0200
+ -- Daniele E. Domenichelli <daniele.domenichelli@gmail.com>  Mon, 31 Mar 2014 10:25:36 +0200
 
 oxygen-transparent (0~20130220-1) experimental; urgency=low
 
