@@ -10,7 +10,7 @@ Build-Depends: pkg-kde-tools (>= 0.14),
  kde-workspace-dev (>= 4:4.11),
  libx11-dev,
  libxrender-dev
-Standards-Version: 3.9.4
+Standards-Version: 3.9.5
 Homepage: https://projects.kde.org/projects/playground/artwork/oxygen-transparent
 Vcs-Git: git://anonscm.debian.org/pkg-kde/kde-extras/oxygen-transparent.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-kde/kde-extras/oxygen-transparent.git
